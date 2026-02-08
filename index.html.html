@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marie </title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffe6eb;
+    overflow: hidden;
+}
+
+/* Bloc principal centré */
+.container {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90%;
+}
+
+h1 {
+    color: #d6336c;
+    margin-bottom: 40px;
+}
+
+/* Bouton OUI (fixe) */
+#yesBtn {
+    padding: 16px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    background-color: #ff4d6d;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+/* Bouton NON (petit et mobile) */
+#noBtn {
+    position: absolute;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #6c757d;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container" id="main">
+    <h1>Marie,<br>est-ce que tu veux bien être ma Valentine ? :) </h1>
+    <button id="yesBtn">Oui ❤️</button>
+</div>
+
+<button id="noBtn">Non</button>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const main = document.getElementById("main");
+
+/* Position aléatoire du bouton NON */
+function moveNoButton() {
+    const padding = 10;
+    const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+/* Position initiale */
+moveNoButton();
+
+/* Le bouton NON bouge tout seul */
+setInterval(moveNoButton, 900);
+
+/* Si elle essaie de cliquer dessus → il s'échappe */
+noBtn.addEventListener("touchstart", moveNoButton);
+noBtn.addEventListener("click", moveNoButton);
+
+/* Le bouton OUI grandit avec le temps */
+let scale = 1;
+setInterval(() => {
+    scale += 0.05;
+    yesBtn.style.transform = "scale(" + scale + ")";
+}, 400);
+
+/* Quand elle clique sur OUI */
+yesBtn.addEventListener("click", function() {
+    main.innerHTML = `
+        <h1>Je savais que t'allais dire oui :)🥰</h1>
+        <p style="font-size:20px; color:#d6336c;">
+        T'es dispo samedi après midi et le soir ? 💌<br><br>
+        Je m'occupe de ce qu'on fait :)
+        </p>
+    `;
+    noBtn.style.display = "none";
+});
+</script>
+
+</body>
+</html>
